@@ -1,6 +1,7 @@
 from datetime import timedelta
 from typing import List, Optional
 from pytz import timezone
+from datetime import datetime
 
 from numpy import ndarray
 from rqdatac import init
@@ -303,3 +304,11 @@ class RqdataDatafeed(BaseDatafeed):
                 data.append(tick)
 
         return data
+
+if __name__ == "__main__":
+
+    datafeed = RqdataDatafeed()
+    r = HistoryRequest(symbol="rb2205", exchange=Exchange.SHFE, interval=Interval.DAILY,
+                       start=datetime(2022, 4, 10, 1, 0, 0), end=datetime(2022, 4,15, 1, 0, 0))
+    r = datafeed.query_bar_history(r)
+    print("result : ", len(r))
